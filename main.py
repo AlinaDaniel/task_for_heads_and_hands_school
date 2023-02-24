@@ -1,17 +1,33 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import creatures
+from creatures import Monster, Gamer
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Пример использования классов
+def game():
+    g = Gamer(attack=20, defense=10, health=100, damage=range(10, 50))
+    print("Cоздана", g)
+    print("---")
+    m = Monster(attack=15, defense=5, health=90, damage=range(40))
+    print("Cоздана", m)
+    print("---")
+    for round_number in range(1, 8):
+        print(m.get_object_type(), "атаковал", g.get_object_type() + "a")
+        m.hit(g)
+
+        print(g.get_object_type(), "атаковал", m.get_object_type() + "a")
+        g.hit(m)
+
+        print(f"Результаты {round_number} раунда:")
+        print(f"{g.get_object_type()} - Здоровье: {g.health}")
+        print(f"{m.get_object_type()} - Здоровье: {m.health}")
+        print("---")
+
+        print(g.get_object_type(), "активирует исцеление")
+        g.healing()
+        print(f"{g.get_object_type()} - Здоровье: {g.health}")
+        print("---")
+        if not m.alive or not g.alive:
+            break
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    creatures.game()
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    game()
